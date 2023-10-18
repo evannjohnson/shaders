@@ -1,0 +1,48 @@
+global:
+    time: 0.0
+    time2: 0.0
+
+in:
+    Midi_Fighter_Twister:
+        -   key: 20
+            name: u_timeWizard
+            type: scalar
+            shape: |
+                function () {
+                    if (value == 65) {
+                        global.time += .01;
+                    } else if (value == 63) {
+                        global.time -= .01;
+                    }
+                    return global.time;
+                }
+
+        -   key: 21
+            name: u_timeWizard2
+            type: scalar
+            shape: |
+                function () {
+                    if (value == 65) {
+                        global.time2 += .01;
+                    } else if (value == 63) {
+                        global.time2 -= .01;
+                    }
+                    return global.time2;
+                }
+
+    macOS-vmidi_HammerspoonMidi:
+        -   key: 80
+            name: u_timeWizard
+            type: scalar
+            shape: |
+                function () {
+                    if (value == 65) {
+                        global.time += .02;
+                    } else if (value == 63) {
+                        global.time -= .02;
+                    }
+                    return global.time;
+                }
+out:
+    -   csv
+    -   osc://localhost:8000

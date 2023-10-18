@@ -1,0 +1,33 @@
+global:
+    timeWizardX: 0.0
+    timeWizardY: 0.0
+in:
+    Midi_Fighter_Twister:
+        -   key: 20
+            name: u_timeWizardX
+            type: scalar
+            shape: |
+                function () {
+                    if (value == 65) {
+                        global.timeWizardX += .01;
+                    } else if (value == 63) {
+                        global.timeWizardX -= .01;
+                    }
+                    return global.timeWizardX;
+                }
+
+        -   key: 21
+            name: u_timeWizardY
+            type: scalar
+            shape: |
+                function () {
+                    if (value == 65) {
+                        global.timeWizardY += .01;
+                    } else if (value == 63) {
+                        global.timeWizardY -= .01;
+                    }
+                    return global.timeWizardY;
+                }
+out:
+    -   csv
+    -   osc://localhost:8000
