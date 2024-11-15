@@ -43,6 +43,20 @@ in:
                     }
                     return global.time;
                 }
+
+    ortho_remote_Bluetooth:
+        -   key: 1
+            name: u_timeWizard
+            type: scalar
+            shape: |
+                function () {
+                    if (value == 127) {
+                        global.time += .02;
+                    } else if (value == 1) {
+                        global.time -= .02;
+                    }
+                    return global.time;
+                }
 out:
     -   csv
     -   osc://localhost:8000
