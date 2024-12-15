@@ -3,12 +3,13 @@ precision mediump float;
 #endif
 
 #include "lygia/draw/digits.glsl"
+#include "lygia/generative/pnoise.glsl"
 
 uniform vec2 u_resolution;
 uniform float u_time;
 uniform vec2  u_mouse;
 
-float radius = 0.25;
+float radius = 0.75;
 vec4 f_color;
 
 float depth(float r, float x, float y) {
@@ -24,8 +25,7 @@ void main() {
     float z = depth(radius, loc.x, loc.y);
     float dis = distance(vec2(0.0, 0.0), loc);
     if (dis <= radius) {
-        color += vec3(loc.x, loc.y, z);
-        color += vec3(0.2);
+        color += pnoise(vec3(loc.x, loc.y, z) * 5., vec3(0.));
     }
 
     float zmouse = depth(radius, smouse_loc.x, smouse_loc.y);
