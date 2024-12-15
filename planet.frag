@@ -17,7 +17,6 @@ float depth(float r, float x, float y) {
 
 void main() {
     vec2 xy = gl_FragCoord.xy / u_resolution.xy;
-    vec2 smouse_xy = u_mouse / u_resolution.xy;
     vec2 smouse_loc = u_mouse / u_resolution.xy * 2. - 1.;
     vec2 loc = xy * 2. - 1.0;
     vec3 color = vec3(0.0);
