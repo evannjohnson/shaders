@@ -16,6 +16,18 @@ float depth(float r, float x, float y) {
     return sqrt(r * r - x * x - y * y);
 }
 
+vec3 rgbScale(float r, float g, float b) {
+    return vec3(r, g, b) / 255.;
+}
+
+vec3 noiseToColor(float noise) {
+    if (noise <= .15) {
+        return rgbScale(73., 153., 255.);
+    } else {
+        return rgbScale(115., 255., 164.);
+    }
+}
+
 void main() {
     vec2 xy = gl_FragCoord.xy / u_resolution.xy;
     vec2 smouse_loc = u_mouse / u_resolution.xy * 2. - 1.;
@@ -25,7 +37,7 @@ void main() {
     float z = depth(radius, loc.x, loc.y);
     float dis = distance(vec2(0.0, 0.0), loc);
     if (dis <= radius) {
-        color += pnoise(vec3(loc.x, loc.y, z) * 5., vec3(0.));
+        color += noiseToColor(pnoise(vec3(loc.x, loc.y, z) * 5., vec3(0.)));
     }
 
     float zmouse = depth(radius, smouse_loc.x, smouse_loc.y);
