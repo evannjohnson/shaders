@@ -24,7 +24,8 @@ void main() {
     float z = depth(radius, loc.x, loc.y);
     float dis = distance(vec2(0.0, 0.0), loc);
     if (dis <= radius) {
-        color += vec3(1.0);
+        color += vec3(loc.x, loc.y, z);
+        color += vec3(0.2);
     }
 
     float zmouse = depth(radius, smouse_loc.x, smouse_loc.y);
