@@ -11,19 +11,25 @@ uniform vec2  u_mouse;
 float radius = 0.25;
 vec4 f_color;
 
+float depth(float r, float x, float y) {
+    return sqrt(exp2(r) - exp2(x) - exp2(y));
+}
+
 void main() {
-    vec2 xy = gl_FragCoord.xy/u_resolution.xy;
-    vec2 smouse = u_mouse/u_resolution.xy;
+    vec2 xy = gl_FragCoord.xy / u_resolution.xy;
+    vec2 smouse_xy = u_mouse / u_resolution.xy;
+    vec2 smouse_loc = u_mouse / u_resolution.xy * 2. - 1.;
     vec2 loc = xy * 2. - 1.0;
     vec3 color = vec3(0.0);
 
-    float z = sqrt(exp2(radius) - exp2(loc.x) - exp2(loc.y));
+    float z = depth(radius, xy.x, xy.y);
     float dis = distance(vec2(0.0, 0.0), loc);
     if (dis <= radius) {
         color += vec3(1.0);
     }
 
-    color += digits(xy - vec2(0.05,0.05), smouse.x);
+    float zmouse = depth(radius, smouse_xy.x, smouse_xy.y);
+    color += digits(xy - vec2(0.05,0.05), zmouse);
     // color += digits(xy - vec2(0.5, 0.0), radius);
 
     gl_FragColor = vec4(color, 1.0);
